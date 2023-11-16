@@ -4,20 +4,24 @@ using UnityEngine;
 
 public class State :  MonoBehaviour
 {
-    public  GameObject owner;
+    internal  GameObject owner;
     public int panelIndex;
     internal Transform targetT;
     internal Vector3 targetPos;
-   
+    private void Awake()
+    {
+        owner = transform.parent.gameObject;
+        transform.parent.GetComponent<UnitScript>().PanelStates[panelIndex] = this;
+    }
     public virtual void StateUpdate()
     {
         
     }
-    public virtual void StateEnter(GameObject caller,Transform target= null)
+    public virtual void StateEnter(Transform target)
     {
         targetT = target;
         targetPos = targetT.position;
-        owner = caller;
+        
 
     }
     public virtual void StateExit()
@@ -28,10 +32,4 @@ public class State :  MonoBehaviour
  
 }
 
-public interface IState
-{
-    void StateUpdate();
-    void StateEnter(GameObject caller, Transform target = null);
 
-    void StateExit();
-}
