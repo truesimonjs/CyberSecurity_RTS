@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MoveState : BaseState
+public class MoveState : State
 {
     private NavMeshAgent agent;
     public override void StateEnter(GameObject caller, Transform target = null)

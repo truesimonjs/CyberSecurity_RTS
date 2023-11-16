@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BehaviourTest : MonoBehaviour
 {
-    BaseState currentState;
+    State currentState;
     public Transform followTarget;
     private void Start()
     {

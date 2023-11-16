@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseState
+public class State :  MonoBehaviour
 {
     public  GameObject owner;
+    public int panelIndex;
     internal Transform targetT;
     internal Vector3 targetPos;
    
@@ -25,4 +26,12 @@ public class BaseState
     }
     
  
+}
+
+public interface IState
+{
+    void StateUpdate();
+    void StateEnter(GameObject caller, Transform target = null);
+
+    void StateExit();
 }
