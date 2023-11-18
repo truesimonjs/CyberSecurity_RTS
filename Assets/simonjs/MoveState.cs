@@ -6,14 +6,27 @@ using UnityEngine.AI;
 public class MoveState : State
 {
     private NavMeshAgent agent;
-    public override void StateEnter(Transform target = null)
+    private bool targetIsTransform;
+    public override void StateEnter()
     {
-        base.StateEnter(target);
+        
+        targetIsTransform = targetT != null;
         agent = owner.GetComponent<NavMeshAgent>();
+        agent.SetDestination(targetPos);
+        GameObject testSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        testSphere.transform.position = targetPos;
+        
     }
     public override void StateUpdate()
     {
         base.StateUpdate();
-        agent.SetDestination(targetT.position);
+        if (targetIsTransform)
+        {
+            
+            agent.SetDestination(targetT.position);
+        }
+       
+
+        
     }
 }

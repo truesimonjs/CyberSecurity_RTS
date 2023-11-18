@@ -19,11 +19,15 @@ public class UnitScript : MonoBehaviour
         
         currentState?.StateUpdate();
     }
-    public void SetState(int index)
+    public void SetState(int index,Transform commandPos)
     {
         currentState = PanelStates[index];
-        currentState.StateEnter(followTarget);
+        currentState.StateEnter(commandPos);
+    }
+    public void SetState(int index, Vector3 commandPos)
+    {
+        currentState = PanelStates[index];
+        currentState.StateEnter(commandPos);
     }
 
-    
 }

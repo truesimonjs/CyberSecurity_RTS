@@ -17,13 +17,25 @@ public class State :  MonoBehaviour
     {
         
     }
-    public virtual void StateEnter(Transform target)
+
+    public  void StateEnter(Transform target)
     {
         targetT = target;
-        targetPos = targetT.position;
+        StateEnter(targetT.position);
         
+    }
+    public  void StateEnter(Vector3 target)
+    {
+        
+        targetPos = target;
+        StateEnter();
 
     }
+    public virtual void StateEnter()
+    {
+
+    }
+
     public virtual void StateExit()
     {
 

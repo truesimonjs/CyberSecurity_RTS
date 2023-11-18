@@ -8,6 +8,36 @@ public class UnitPanel : MonoBehaviour
     int SelectedState = -1;
    public void PressButton(int id)
     {
-        selected.SetState(id);
+        SelectedState = id;
+        StartCoroutine(CheckClick());
+        
+
+    }
+
+    public IEnumerator CheckClick()
+    {
+        while (SelectedState != -1)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                Physics.Raycast(ray, out hit, Mathf.Infinity);
+                if (LayerMask.NameToLayer("Unit") == hit.collider.gameObject.layer)
+                {
+                    Debug.Log("target was unit");
+                    selected.SetState(SelectedState, hit.collider.gameObject.transform);
+                }
+                else
+                {
+                    selected.SetState(SelectedState,hit.point);
+                }
+                SelectedState = -1;
+                
+            }
+            yield return null;
+        }
+        
     }
 }
