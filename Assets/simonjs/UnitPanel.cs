@@ -6,14 +6,18 @@ public class UnitPanel : MonoBehaviour
 {
     public UnitScript selected;
     int SelectedState = -1;
-   public void PressButton(int id)
+    public static UnitPanel instance;
+    private void Awake()
     {
-        SelectedState = id;
-        StartCoroutine(CheckClick());
-        
-
+        instance = this;
     }
-
+    public void selectUnit(UnitScript unit)
+    {
+        if (SelectedState == -1)
+        {
+            selected = unit;
+        }
+    }
     public IEnumerator CheckClick()
     {
         while (SelectedState != -1)

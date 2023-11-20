@@ -9,6 +9,7 @@ public class UnitScript : MonoBehaviour
     public State currentState;
     public Transform followTarget;
     
+    
     private void Start()
     {
        
@@ -29,5 +30,9 @@ public class UnitScript : MonoBehaviour
         currentState = PanelStates[index];
         currentState.StateEnter(commandPos);
     }
+    private void OnMouseDown    ()
+    {
+        UnitPanel.instance.selectUnit(this);
 
+    }
 }
