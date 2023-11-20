@@ -13,8 +13,7 @@ public class MoveState : State
         targetIsTransform = targetT != null;
         agent = owner.GetComponent<NavMeshAgent>();
         agent.SetDestination(targetPos);
-        GameObject testSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        testSphere.transform.position = targetPos;
+      
         
     }
     public override void StateUpdate()

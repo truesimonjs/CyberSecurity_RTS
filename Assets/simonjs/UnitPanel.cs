@@ -11,6 +11,14 @@ public class UnitPanel : MonoBehaviour
     {
         instance = this;
     }
+    public void PressButton(int id)
+    {
+        SelectedState = id;
+        StartCoroutine(CheckClick());
+
+
+    }
+
     public void selectUnit(UnitScript unit)
     {
         if (SelectedState == -1)
