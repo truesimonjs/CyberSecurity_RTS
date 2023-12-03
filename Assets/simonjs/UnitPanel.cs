@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitPanel : MonoBehaviour
@@ -7,14 +6,25 @@ public class UnitPanel : MonoBehaviour
     public UnitScript selected;
     int SelectedState = -1;
     public static UnitPanel instance;
+    public GameObject[] ButtonObjects;
     private void Awake()
     {
         instance = this;
+
     }
     public void PressButton(int id)
     {
         SelectedState = id;
-        StartCoroutine(CheckClick());
+        
+        if (selected.PanelStates[id].needsInput)
+        {
+            StartCoroutine(CheckClick());
+        }
+        else
+        {
+            selected.SetState(id);
+        }
+       
 
 
     }
@@ -24,6 +34,10 @@ public class UnitPanel : MonoBehaviour
         if (SelectedState == -1)
         {
             selected = unit;
+            for (int i = 0; i < ButtonObjects.Length; i++)
+            {
+                ButtonObjects[i].SetActive(selected.PanelStates[i] != null);
+            }
         }
     }
     public IEnumerator CheckClick()
@@ -32,7 +46,7 @@ public class UnitPanel : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                
+
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 Physics.Raycast(ray, out hit, Mathf.Infinity);
@@ -43,13 +57,13 @@ public class UnitPanel : MonoBehaviour
                 }
                 else
                 {
-                    selected.SetState(SelectedState,hit.point);
+                    selected.SetState(SelectedState, hit.point);
                 }
                 SelectedState = -1;
-                
+
             }
             yield return null;
         }
-        
+
     }
 }

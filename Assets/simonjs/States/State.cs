@@ -1,13 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class State :  MonoBehaviour
+public class State : MonoBehaviour
 {
-    internal  GameObject owner;
+    internal GameObject owner;
     public int panelIndex;
     internal Transform targetT;
     internal Vector3 targetPos;
+    [HideInInspector]
+    public bool needsInput = true;
     private void Awake()
     {
         owner = transform.parent.gameObject;
@@ -15,18 +15,18 @@ public class State :  MonoBehaviour
     }
     public virtual void StateUpdate()
     {
-        
+
     }
 
-    public  void StateEnter(Transform target)
+    public void StateEnter(Transform target)
     {
         targetT = target;
         StateEnter(targetT.position);
-        
+
     }
-    public  void StateEnter(Vector3 target)
+    public void StateEnter(Vector3 target)
     {
-        
+
         targetPos = target;
         StateEnter();
 
@@ -40,8 +40,8 @@ public class State :  MonoBehaviour
     {
 
     }
-    
- 
+
+
 }
 
 
