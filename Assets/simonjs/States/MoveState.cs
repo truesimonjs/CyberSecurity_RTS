@@ -21,9 +21,13 @@ public class MoveState : State
         base.StateUpdate();
         if (targetIsTransform)
         {
-
+            
             agent.SetDestination(targetT.position);
+        } else if (agent.pathPending&&agent.remainingDistance<agent.stoppingDistance)
+        {
+            owner.NextState();
         }
+      
     }
     public override void StateExit()
     {

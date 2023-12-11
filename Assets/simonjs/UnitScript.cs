@@ -9,7 +9,7 @@ public class UnitScript : MonoBehaviour
     public State currentState;
     public List<UnitOrder> Queue = new List<UnitOrder>();
     public Transform followTarget;
-
+    public GameObject selectDisplay;
 
     private void Start()
     {
@@ -24,15 +24,16 @@ public class UnitScript : MonoBehaviour
    
     public void SetState(UnitOrder order,bool replaceCurrent = true)
     {
-        if (replaceCurrent)
+        if (!replaceCurrent&&Queue.Count>0)
         {
-            currentState.StateExit();
-            currentState = PanelStates[order.index];
-            currentState.StateEnter(order);
+            Queue.Add(order);
         }
         else
         {
-            Queue.Add(order);
+           
+            currentState.StateExit();
+            currentState = PanelStates[order.index];
+            currentState.StateEnter(order);
         }
     }
     public void NextState()

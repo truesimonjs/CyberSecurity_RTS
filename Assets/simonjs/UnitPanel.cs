@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+
 public class UnitPanel : MonoBehaviour
 {
     public UnitScript selected;
@@ -22,7 +23,8 @@ public class UnitPanel : MonoBehaviour
         }
         else
         {
-            selected.SetState(new UnitOrder(id));
+            selected.SetState(new UnitOrder(id),!Input.GetButton("queue"));
+
         }
        
 
@@ -33,7 +35,9 @@ public class UnitPanel : MonoBehaviour
     {
         if (SelectedState == -1)
         {
+            selected?.selectDisplay.SetActive(false);
             selected = unit;
+            selected.selectDisplay.SetActive(true);
             for (int i = 0; i < ButtonObjects.Length; i++)
             {
                 ButtonObjects[i].SetActive(selected.PanelStates[i] != null);
@@ -53,13 +57,13 @@ public class UnitPanel : MonoBehaviour
                 if (LayerMask.NameToLayer("Unit") == hit.collider.gameObject.layer)
                 {
                     Debug.Log("target was unit");
-                    selected.SetState(new UnitOrder(SelectedState,hit.collider.gameObject.transform));
+                    selected.SetState(new UnitOrder(SelectedState,hit.collider.gameObject.transform), !Input.GetButton("queue"));
                 }
                 else
                 {
-                    selected.SetState(new UnitOrder(SelectedState,hit.point));
+                    selected.SetState(new UnitOrder(SelectedState,hit.point), !Input.GetButton("queue"));
                 }
-                SelectedState = -1;
+                SelectedState = Input.GetButton("queue")? SelectedState:-1;
 
             }
             yield return null;

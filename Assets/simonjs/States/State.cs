@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class State : MonoBehaviour
 {
-    internal GameObject owner;
+    internal UnitScript owner;
     public int panelIndex;
     //deprecating
     internal Transform targetT;
@@ -13,8 +13,9 @@ public class State : MonoBehaviour
     public bool needsInput = true;
     private void Awake()
     {
-        owner = transform.parent.gameObject;
-        transform.parent.GetComponent<UnitScript>().PanelStates[panelIndex] = this;
+        owner = transform.parent.gameObject.GetComponent<UnitScript>();
+        owner.PanelStates[panelIndex] = this;
+        //transform.parent.GetComponent<UnitScript>().PanelStates[panelIndex] = this;
     }
     public virtual void StateUpdate()
     {
