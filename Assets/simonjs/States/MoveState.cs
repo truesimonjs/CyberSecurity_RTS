@@ -8,10 +8,11 @@ public class MoveState : State
     
     public override void StateEnter()
     {
-        
+        Debug.Log("stateenter");
         targetIsTransform = targetT != null;
         agent = owner.GetComponent<NavMeshAgent>();
         agent.SetDestination(targetPos);
+        Debug.Log(owner.GetComponent<NavMeshAgent>());
         
 
 
@@ -23,10 +24,11 @@ public class MoveState : State
         {
             
             agent.SetDestination(targetT.position);
-        } else if (agent.pathPending&&agent.remainingDistance<agent.stoppingDistance)
+        } else if (!agent.pathPending&&agent.remainingDistance<agent.stoppingDistance)
         {
             owner.NextState();
         }
+        Debug.Log(agent.pathPending && agent.remainingDistance < agent.stoppingDistance);
       
     }
     public override void StateExit()

@@ -61,7 +61,7 @@ public class UnitPanel : MonoBehaviour
                 }
                 else
                 {
-                    selected.SetState(new UnitOrder(SelectedState,hit.point), !Input.GetButton("queue"));
+                    selected.SetState(new UnitOrder(SelectedState,hit.point), !Input.GetButton("queue"));   
                 }
                 SelectedState = Input.GetButton("queue")? SelectedState:-1;
 

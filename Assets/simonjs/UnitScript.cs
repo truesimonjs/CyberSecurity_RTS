@@ -10,7 +10,8 @@ public class UnitScript : MonoBehaviour
     public List<UnitOrder> Queue = new List<UnitOrder>();
     public Transform followTarget;
     public GameObject selectDisplay;
-
+    //temp var for debug
+    public int listcount;
     private void Start()
     {
         currentState = PanelStates[1]; //1 is idlestate
@@ -18,31 +19,44 @@ public class UnitScript : MonoBehaviour
 
     private void Update()
     {
-
+        
         currentState?.StateUpdate();
+        listcount = Queue.Count;
     }
    
     public void SetState(UnitOrder order,bool replaceCurrent = true)
     {
-        if (!replaceCurrent&&Queue.Count>0)
+
+       if (replaceCurrent)
         {
+            Queue.Clear();
+            Queue.Add(order);
+            NextState();
+        } else 
+        { 
             Queue.Add(order);
         }
-        else
-        {
+
            
-            currentState.StateExit();
-            currentState = PanelStates[order.index];
-            currentState.StateEnter(order);
-        }
+            
+        
     }
     public void NextState()
     {
+        currentState.StateExit();
         if (Queue.Count > 0)
         {
-            SetState(Queue[0]);
+            currentState = PanelStates[Queue[0].index];
+            currentState.StateEnter(Queue[0]);
             Queue.RemoveAt(0);
         }
+        else
+        {
+            currentState = PanelStates[1];
+            currentState.StateEnter();
+        }
+       
+        
     }
     private void OnMouseDown()
     {
