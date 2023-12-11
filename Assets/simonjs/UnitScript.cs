@@ -18,27 +18,23 @@ public class UnitScript : MonoBehaviour
 
         currentState?.StateUpdate();
     }
-    public void SetState(int index, Transform commandPos)
+   
+    public void SetState(int index, UnitOrder order)
     {
         currentState.StateExit();
         currentState = PanelStates[index];
-        currentState.StateEnter(commandPos);
-    }
-    public void SetState(int index, Vector3 commandPos)
-    {
-        currentState.StateExit();
-        currentState = PanelStates[index];
-        currentState.StateEnter(commandPos);
+        currentState.StateEnter(order);
     }
     public void SetState(int index)
     {
         currentState.StateExit();
         currentState = PanelStates[index];
         currentState.StateEnter();
-    }
+    } 
     private void OnMouseDown()
     {
         UnitPanel.instance.selectUnit(this);
 
     }
 }
+

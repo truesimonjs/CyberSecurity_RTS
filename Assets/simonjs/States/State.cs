@@ -4,8 +4,11 @@ public class State : MonoBehaviour
 {
     internal GameObject owner;
     public int panelIndex;
-    internal Transform targetT;
-    internal Vector3 targetPos;
+    //deprecating
+   // internal Transform targetT;
+   // internal Vector3 targetPos;
+    //
+    internal UnitOrder order;
     [HideInInspector]
     public bool needsInput = true;
     private void Awake()
@@ -17,17 +20,10 @@ public class State : MonoBehaviour
     {
 
     }
-
-    public void StateEnter(Transform target)
+   
+    public void StateEnter(UnitOrder order)
     {
-        targetT = target;
-        StateEnter(targetT.position);
-
-    }
-    public void StateEnter(Vector3 target)
-    {
-
-        targetPos = target;
+        this.order = order;
         StateEnter();
 
     }
@@ -44,4 +40,23 @@ public class State : MonoBehaviour
 
 }
 
+public class UnitOrder
+{
+    public Vector3 vectorTarget;
+    public Transform TargetT;
+    public UnitOrder(Transform target)
+    {
+        TargetT = target;
+        vectorTarget = target.position;
+    }
+    public UnitOrder(Vector3 target)
+    {
+        TargetT = null;
+        vectorTarget = target;
+    }
+    public UnitOrder()
+    {
 
+
+    }
+}

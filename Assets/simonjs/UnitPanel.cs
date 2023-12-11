@@ -53,11 +53,11 @@ public class UnitPanel : MonoBehaviour
                 if (LayerMask.NameToLayer("Unit") == hit.collider.gameObject.layer)
                 {
                     Debug.Log("target was unit");
-                    selected.SetState(SelectedState, hit.collider.gameObject.transform);
+                    selected.SetState(SelectedState, new UnitOrder(hit.collider.gameObject.transform));
                 }
                 else
                 {
-                    selected.SetState(SelectedState, hit.point);
+                    selected.SetState(SelectedState, new UnitOrder(hit.point));
                 }
                 SelectedState = -1;
 
