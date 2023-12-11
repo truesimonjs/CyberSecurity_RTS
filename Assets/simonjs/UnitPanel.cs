@@ -22,7 +22,7 @@ public class UnitPanel : MonoBehaviour
         }
         else
         {
-            selected.SetState(id);
+            selected.SetState(new UnitOrder(id));
         }
        
 
@@ -53,11 +53,11 @@ public class UnitPanel : MonoBehaviour
                 if (LayerMask.NameToLayer("Unit") == hit.collider.gameObject.layer)
                 {
                     Debug.Log("target was unit");
-                    selected.SetState(SelectedState, new UnitOrder(hit.collider.gameObject.transform));
+                    selected.SetState(new UnitOrder(SelectedState,hit.collider.gameObject.transform));
                 }
                 else
                 {
-                    selected.SetState(SelectedState, new UnitOrder(hit.point));
+                    selected.SetState(new UnitOrder(SelectedState,hit.point));
                 }
                 SelectedState = -1;
 

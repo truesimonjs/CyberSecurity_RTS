@@ -5,8 +5,8 @@ public class State : MonoBehaviour
     internal GameObject owner;
     public int panelIndex;
     //deprecating
-   // internal Transform targetT;
-   // internal Vector3 targetPos;
+    internal Transform targetT;
+    internal Vector3 targetPos;
     //
     internal UnitOrder order;
     [HideInInspector]
@@ -23,7 +23,9 @@ public class State : MonoBehaviour
    
     public void StateEnter(UnitOrder order)
     {
-        this.order = order;
+        targetPos = order.vectorTarget;
+        targetT = order.TargetT;
+       
         StateEnter();
 
     }
@@ -44,19 +46,22 @@ public class UnitOrder
 {
     public Vector3 vectorTarget;
     public Transform TargetT;
-    public UnitOrder(Transform target)
+    public int index;
+    public UnitOrder(int index,Transform target)
     {
+        this.index = index;
         TargetT = target;
         vectorTarget = target.position;
     }
-    public UnitOrder(Vector3 target)
+    public UnitOrder(int index, Vector3 target)
     {
+        this.index = index;
         TargetT = null;
         vectorTarget = target;
     }
-    public UnitOrder()
+    public UnitOrder(int index)
     {
-
+        this.index = index;
 
     }
 }
