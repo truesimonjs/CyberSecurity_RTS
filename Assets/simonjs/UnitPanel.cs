@@ -23,7 +23,7 @@ public class UnitPanel : MonoBehaviour
         }
         else
         {
-            selected.SetState(new UnitOrder(id),!Input.GetButton("queue"));
+            selected.AddState(new UnitOrder(id),!Input.GetButton("queue"));
 
         }
        
@@ -57,11 +57,11 @@ public class UnitPanel : MonoBehaviour
                 if (LayerMask.NameToLayer("Unit") == hit.collider.gameObject.layer)
                 {
                     Debug.Log("target was unit");
-                    selected.SetState(new UnitOrder(SelectedState,hit.collider.gameObject.transform), !Input.GetButton("queue"));
+                    selected.AddState(new UnitOrder(SelectedState,hit.collider.gameObject.transform), !Input.GetButton("queue"));
                 }
                 else
                 {
-                    selected.SetState(new UnitOrder(SelectedState,hit.point), !Input.GetButton("queue"));   
+                    selected.AddState(new UnitOrder(SelectedState,hit.point), !Input.GetButton("queue"));   
                 }
                 SelectedState = Input.GetButton("queue")? SelectedState:-1;
 

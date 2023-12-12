@@ -24,7 +24,7 @@ public class UnitScript : MonoBehaviour
         listcount = Queue.Count;
     }
    
-    public void SetState(UnitOrder order,bool replaceCurrent = true)
+    public void AddState(UnitOrder order,bool replaceCurrent = true)
     {
 
        if (replaceCurrent)
@@ -47,8 +47,10 @@ public class UnitScript : MonoBehaviour
         if (Queue.Count > 0)
         {
             currentState = PanelStates[Queue[0].index];
-            currentState.StateEnter(Queue[0]);
+            UnitOrder temp = Queue[0];
             Queue.RemoveAt(0);
+            currentState.StateEnter(temp);
+            
         }
         else
         {
