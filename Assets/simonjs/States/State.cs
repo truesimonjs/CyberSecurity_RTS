@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class State : MonoBehaviour
 {
@@ -21,12 +22,12 @@ public class State : MonoBehaviour
     {
 
     }
-   
+
     public void StateEnter(UnitOrder order)
     {
         targetPos = order.vectorTarget;
         targetT = order.TargetT;
-       
+
         StateEnter();
 
     }
@@ -39,7 +40,17 @@ public class State : MonoBehaviour
     {
 
     }
-
+    static public State findState<T>(State[] states) where T : State
+    {
+        foreach (State state in states)
+        {
+            if (state.GetType() == typeof(T))
+            {
+                return state;
+            }
+        }
+        return null;
+    }
 
 }
 
@@ -48,7 +59,53 @@ public class UnitOrder
     public Vector3 vectorTarget;
     public Transform TargetT;
     public int index;
-    public UnitOrder(int index,Transform target)
+    public Type stateT;
+    
+    //changed to using stateetypes instead of int index, old code remains due to scripts using it
+    public UnitOrder(Type stateType, Transform target)
+    {
+        this.stateT = stateType;
+        TargetT = target;
+        vectorTarget = target.position;
+    }
+    public UnitOrder(Type stateType, Vector3 target)
+    {
+        this.stateT = stateType;
+        TargetT = null;
+        vectorTarget = target;
+    }
+    public UnitOrder (Type stateType)
+    {
+        
+        this.stateT = stateType;
+
+    }
+    public State GetState(State[] states)
+    {
+        if(stateT == null)
+        {
+            Debug.Log("unitorder made use of index");
+            return states[index];
+        }
+        foreach (State state in states)
+        {
+            if (state.GetType() == stateT)
+            {
+                return state;
+            }
+        }
+        return null;
+    }
+    public void constructed()
+    {
+        if (stateT.GetType() != typeof(State))
+        {
+
+            Debug.LogError("created unityorder with type that does not inherit from State");
+        }
+    }
+    //deprecating maybe
+    public UnitOrder(int index, Transform target)
     {
         this.index = index;
         TargetT = target;

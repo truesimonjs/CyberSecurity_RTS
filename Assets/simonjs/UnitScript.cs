@@ -36,20 +36,22 @@ public class UnitScript : MonoBehaviour
         { 
             Queue.Add(order);
         }
-
-           
-            
-        
+       
     }
+   
     public void NextState()
     {
         currentState.StateExit();
-        if (Queue.Count > 0)
+        UnitOrder order = Queue[0];
+        currentState = order.GetState(PanelStates);
+        if (currentState!=null)
         {
-            currentState = PanelStates[Queue[0].index];
-            UnitOrder temp = Queue[0];
+            
+            //currentState = PanelStates[Queue[0].index];
+           
+            
             Queue.RemoveAt(0);
-            currentState.StateEnter(temp);
+            currentState.StateEnter(order);
             
         }
         else
