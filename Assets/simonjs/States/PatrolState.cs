@@ -6,15 +6,16 @@ using UnityEngine.AI;
 public class PatrolState : State
 {
     private NavMeshAgent agent;
-   
-
+    private Vector3 originPos;
+    private bool wasFirst; //bool that determines wether or not this state was the first and thus wether to add originpos as a patrol state
     public override void StateEnter()
     {
-        
-        if (owner.Queue.Count == 0)
+        wasFirst = owner.Queue.Count == 0;
+        if (wasFirst)
         {
-            owner.AddState(new UnitOrder(panelIndex, transform.position),false);
-            Debug.Log("t");
+            
+            originPos = transform.position;
+            
         }
         agent = owner.GetComponent<NavMeshAgent>();
         agent.SetDestination(targetPos);
@@ -28,7 +29,11 @@ public class PatrolState : State
         base.StateUpdate();
        if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
         {
-            owner.AddState(new UnitOrder(panelIndex, targetPos),false);
+            if (wasFirst)
+            {
+                owner.AddState(new UnitOrder(panelIndex, originPos), false); 
+            }
+            owner.AddState(new UnitOrder(panelIndex, targetPos),false);  //adds itself to the back of the queue
             owner.NextState();
 
         }
@@ -37,7 +42,7 @@ public class PatrolState : State
     }
     public override void StateExit()
     {
-
+        
         agent.ResetPath();
     }
 }
