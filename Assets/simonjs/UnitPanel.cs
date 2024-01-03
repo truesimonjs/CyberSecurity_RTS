@@ -1,16 +1,20 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
 public class UnitPanel : MonoBehaviour
 {
     public UnitScript selected;
+    public List<UnitScript> SelectedList;
     int SelectedState = -1;
     public static UnitPanel instance;
-    public GameObject[] ButtonObjects;
+    //public GameObject[] ButtonObjects;
+    private UnitButton[] buttons;
     private void Awake()
     {
         instance = this;
+        buttons = GameObject.FindObjectsOfType<UnitButton>(true);
 
     }
     public void PressButton(int id)
@@ -23,7 +27,7 @@ public class UnitPanel : MonoBehaviour
         }
         else
         {
-            selected.AddState(new UnitOrder(id),!Input.GetButton("queue"));
+            selected.AddState(new UnitOrder(id),!Input.GetButton("shift"));
 
         }
        
@@ -36,14 +40,33 @@ public class UnitPanel : MonoBehaviour
     {
         if (SelectedState == -1)
         {
+            if (!Input.GetButton("shift"))
+            {
+                MassSelect(false);
+            }
+
             selected?.selectDisplay.SetActive(false);
             selected = unit;
             selected.selectDisplay.SetActive(true);
-            for (int i = 0; i < ButtonObjects.Length; i++)
+            for (int i = 0; i < buttons.Length; i++)
             {
-                ButtonObjects[i].SetActive(selected.PanelStates[i] != null);
+                UnitButton button = buttons[i];
+                
+                button.gameObject.SetActive(selected.PanelStates[button.index] != null);
+                if (button.gameObject.activeSelf)
+                {
+                    button.buttonUpdate(selected.PanelStates[button.index].GetData());
+                }
             }
         }
+    }
+    public void MassSelect(bool active)
+    {
+        foreach(UnitScript unit in SelectedList)
+        {
+            unit.selectDisplay.SetActive(active);
+        }
+        if (!active) { SelectedList.Clear(); }
     }
     public IEnumerator CheckClick()
     {
@@ -64,7 +87,7 @@ public class UnitPanel : MonoBehaviour
                 {
                     selected.AddState(new UnitOrder(SelectedState,hit.point), !Input.GetButton("queue"));   
                 }
-                SelectedState = Input.GetButton("queue")? SelectedState:-1;
+                SelectedState = Input.GetButton("shift")? SelectedState:-1;
 
             }
             yield return null;

@@ -42,14 +42,14 @@ public class UnitScript : MonoBehaviour
     public void NextState()
     {
         currentState.StateExit();
-        UnitOrder order = Queue[0];
-        currentState = order.GetState(PanelStates);
-        if (currentState!=null)
+        
+        if (Queue.Count>0)
         {
-            
+            UnitOrder order = Queue[0];
+            currentState = order.GetState(PanelStates);
             //currentState = PanelStates[Queue[0].index];
-           
-            
+
+
             Queue.RemoveAt(0);
             currentState.StateEnter(order);
             

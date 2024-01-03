@@ -18,6 +18,10 @@ public class State : MonoBehaviour
         owner.PanelStates[panelIndex] = this;
         //transform.parent.GetComponent<UnitScript>().PanelStates[panelIndex] = this;
     }
+    public virtual StateData GetData() 
+    {
+        return new StateData();
+    }
     public virtual void StateUpdate()
     {
 
@@ -53,7 +57,14 @@ public class State : MonoBehaviour
     }
 
 }
-
+public class StateData
+{
+    public string iconText;
+    public StateData(string iconText =" ")
+    {
+        this.iconText = iconText;
+    }
+}
 public class UnitOrder
 {
     public Vector3 vectorTarget;
@@ -67,24 +78,27 @@ public class UnitOrder
         this.stateT = stateType;
         TargetT = target;
         vectorTarget = target.position;
+        constructed();
     }
     public UnitOrder(Type stateType, Vector3 target)
     {
         this.stateT = stateType;
         TargetT = null;
         vectorTarget = target;
+        constructed();
     }
     public UnitOrder (Type stateType)
     {
         
         this.stateT = stateType;
+        constructed();
 
     }
     public State GetState(State[] states)
     {
         if(stateT == null)
         {
-            Debug.Log("unitorder made use of index");
+           // Debug.Log("unitorder made use of index");
             return states[index];
         }
         foreach (State state in states)

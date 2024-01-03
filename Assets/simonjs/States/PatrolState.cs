@@ -5,9 +5,14 @@ using UnityEngine.AI;
 
 public class PatrolState : State
 {
+    private static StateData mydata = new StateData("P");
     private NavMeshAgent agent;
     private Vector3 originPos;
     private bool wasFirst; //bool that determines wether or not this state was the first and thus wether to add originpos as a patrol state
+    public override StateData GetData()
+    {
+        return mydata;
+    }
     public override void StateEnter()
     {
         wasFirst = owner.Queue.Count == 0;
