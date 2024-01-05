@@ -27,7 +27,8 @@ public class UnitPanel : MonoBehaviour
         }
         else
         {
-            selected.AddState(new UnitOrder(id),!Input.GetButton("shift"));
+
+            AddState(SelectedList,new UnitOrder(id),!Input.GetButton("shift"));
 
         }
        
@@ -45,9 +46,9 @@ public class UnitPanel : MonoBehaviour
                 MassSelect(false);
             }
 
-            selected?.selectDisplay.SetActive(false);
-            selected = unit;
-            selected.selectDisplay.SetActive(true);
+            SelectedList.Add(unit);
+            selected = SelectedList[0];
+            unit.selectDisplay.SetActive(true);
             for (int i = 0; i < buttons.Length; i++)
             {
                 UnitButton button = buttons[i];
@@ -68,6 +69,13 @@ public class UnitPanel : MonoBehaviour
         }
         if (!active) { SelectedList.Clear(); }
     }
+    private void AddState(List<UnitScript> units,UnitOrder order, bool replaceCurrent = true)
+    {
+        foreach (UnitScript unit in units)
+        {
+            unit.AddState(order, replaceCurrent);
+        }
+    }
     public IEnumerator CheckClick()
     {
         while (SelectedState != -1)
@@ -81,11 +89,11 @@ public class UnitPanel : MonoBehaviour
                 if (LayerMask.NameToLayer("Unit") == hit.collider.gameObject.layer)
                 {
                     Debug.Log("target was unit");
-                    selected.AddState(new UnitOrder(SelectedState,hit.collider.gameObject.transform), !Input.GetButton("queue"));
+                    AddState(SelectedList,new UnitOrder(SelectedState,hit.collider.gameObject.transform), !Input.GetButton("shift"));
                 }
                 else
                 {
-                    selected.AddState(new UnitOrder(SelectedState,hit.point), !Input.GetButton("queue"));   
+                    AddState(SelectedList,new UnitOrder(SelectedState,hit.point), !Input.GetButton("shift"));   
                 }
                 SelectedState = Input.GetButton("shift")? SelectedState:-1;
 

@@ -258,6 +258,7 @@ MonoBehaviour:
   currentState: {fileID: 0}
   followTarget: {fileID: 0}
   selectDisplay: {fileID: 3011469921618533115}
+  listcount: 0
 --- !u!1 &8469188629702060528
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +270,7 @@ GameObject:
   - component: {fileID: 6813214856633665982}
   - component: {fileID: 5946113120682825790}
   - component: {fileID: 6961232124192865956}
+  - component: {fileID: 4149332211426890033}
   m_Layer: 6
   m_Name: States
   m_TagString: Untagged
@@ -318,4 +320,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelIndex: 0
+  needsInput: 1
+--- !u!114 &4149332211426890033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8469188629702060528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 775e89cac022cf7448a9ed08a362dbf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelIndex: 3
   needsInput: 1

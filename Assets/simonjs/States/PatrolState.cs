@@ -24,7 +24,7 @@ public class PatrolState : State
         }
         agent = owner.GetComponent<NavMeshAgent>();
         agent.SetDestination(targetPos);
-        Debug.Log(owner.GetComponent<NavMeshAgent>());
+       
 
 
 
