@@ -6,6 +6,11 @@ public class IdleState : State
     {
         needsInput = false;
     }
+    public override void StateEnter()
+    {
+        base.StateEnter();
+        
+    }
     public override StateData GetData()
     {
         return mydata;
@@ -18,6 +23,7 @@ public class IdleState : State
     public override void StateUpdate()
     {
         base.StateUpdate();
+        targetPos = this.transform.position;
         if (owner.Queue.Count > 0)
         {
             owner.NextState();

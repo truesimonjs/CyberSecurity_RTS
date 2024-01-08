@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 
 public class UnitPanel : MonoBehaviour
 {
@@ -13,6 +13,7 @@ public class UnitPanel : MonoBehaviour
     private UnitButton[] buttons;
     private void Awake()
     {
+
         instance = this;
         buttons = GameObject.FindObjectsOfType<UnitButton>(true);
 
@@ -80,7 +81,7 @@ public class UnitPanel : MonoBehaviour
     {
         while (SelectedState != -1)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())  //ispointerovergameboject returns true if you clicked on ui, i reverse it to prevent issueing commands while clicking on ui
             {
 
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -97,6 +98,7 @@ public class UnitPanel : MonoBehaviour
                 }
                 SelectedState = Input.GetButton("shift")? SelectedState:-1;
 
+                Debug.Log(hit.point);
             }
             yield return null;
         }

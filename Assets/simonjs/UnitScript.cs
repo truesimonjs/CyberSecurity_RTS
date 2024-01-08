@@ -10,10 +10,12 @@ public class UnitScript : MonoBehaviour
     public List<UnitOrder> Queue = new List<UnitOrder>();
     public Transform followTarget;
     public GameObject selectDisplay;
+    private LineRenderer orderLine;
     //temp var for debug
     public int listcount;
     private void Start()
     {
+        orderLine = GetComponentInChildren<LineRenderer>();
         currentState = PanelStates[1]; //1 is idlestate
     }
 
@@ -22,6 +24,7 @@ public class UnitScript : MonoBehaviour
         
         currentState?.StateUpdate();
         listcount = Queue.Count;
+        ReloadMarkers();
     }
    
     public void AddState(UnitOrder order,bool replaceCurrent = true)
@@ -66,6 +69,17 @@ public class UnitScript : MonoBehaviour
     {
         UnitPanel.instance.selectUnit(this);
 
+    }
+    private void ReloadMarkers()
+    {
+        orderLine.positionCount = Queue.Count+2;
+        orderLine.SetPosition(0, this.transform.position);
+        orderLine.SetPosition(1, currentState.targetPos+ Vector3.up * transform.position.y);
+        
+        for (int i = 2; i <Queue.Count+2; i++)
+        {
+            orderLine.SetPosition(i, Queue[i-2].vectorTarget+Vector3.up*transform.position.y);
+        }
     }
 }
 
