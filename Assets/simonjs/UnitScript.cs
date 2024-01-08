@@ -11,6 +11,7 @@ public class UnitScript : MonoBehaviour
     public Transform followTarget;
     public GameObject selectDisplay;
     private LineRenderer orderLine;
+    private bool isSelected;
     //temp var for debug
     public int listcount;
     private void Start()
@@ -24,7 +25,10 @@ public class UnitScript : MonoBehaviour
         
         currentState?.StateUpdate();
         listcount = Queue.Count;
-        ReloadMarkers();
+        if (isSelected)
+        {
+            ReloadMarkers();
+        }
     }
    
     public void AddState(UnitOrder order,bool replaceCurrent = true)
@@ -64,6 +68,13 @@ public class UnitScript : MonoBehaviour
         }
        
         
+    }
+    public void GotSelected(bool isSelected)
+    {
+        this.isSelected = isSelected;
+        selectDisplay.SetActive(isSelected);
+        orderLine.enabled = isSelected;
+
     }
     private void OnMouseDown()
     {

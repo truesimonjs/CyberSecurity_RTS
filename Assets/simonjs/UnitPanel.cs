@@ -30,6 +30,7 @@ public class UnitPanel : MonoBehaviour
         {
 
             AddState(SelectedList,new UnitOrder(id),!Input.GetButton("shift"));
+            SelectedState = Input.GetButton("shift") ? SelectedState : -1;
 
         }
        
@@ -49,7 +50,7 @@ public class UnitPanel : MonoBehaviour
 
             SelectedList.Add(unit);
             selected = SelectedList[0];
-            unit.selectDisplay.SetActive(true);
+            unit.GotSelected(true);
             for (int i = 0; i < buttons.Length; i++)
             {
                 UnitButton button = buttons[i];
@@ -66,7 +67,7 @@ public class UnitPanel : MonoBehaviour
     {
         foreach(UnitScript unit in SelectedList)
         {
-            unit.selectDisplay.SetActive(active);
+            unit.GotSelected(active);
         }
         if (!active) { SelectedList.Clear(); }
     }
