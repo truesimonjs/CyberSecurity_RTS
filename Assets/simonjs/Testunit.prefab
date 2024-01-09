@@ -168,9 +168,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0.11, z: 0}
-  - {x: 3, y: 0.11, z: 0}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -244,6 +242,7 @@ GameObject:
   - component: {fileID: 1435555924058416439}
   - component: {fileID: 5324356453851773556}
   - component: {fileID: 4760219933884955556}
+  - component: {fileID: 4290500355015378742}
   m_Layer: 6
   m_Name: Testunit
   m_TagString: Untagged
@@ -395,7 +394,21 @@ MonoBehaviour:
   currentState: {fileID: 0}
   followTarget: {fileID: 0}
   selectDisplay: {fileID: 3011469921618533115}
+  combatscript: {fileID: 0}
+  faction: 0
   listcount: 0
+--- !u!114 &4290500355015378742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4886086498863992513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a5b1619d2759547b8ca540125200b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8469188629702060528
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,7 +421,7 @@ GameObject:
   - component: {fileID: 5946113120682825790}
   - component: {fileID: 6961232124192865956}
   - component: {fileID: 4149332211426890033}
-  - component: {fileID: 2063720092770320815}
+  - component: {fileID: 1862394865023305372}
   m_Layer: 6
   m_Name: States
   m_TagString: Untagged
@@ -473,7 +486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelIndex: 3
   needsInput: 1
---- !u!114 &2063720092770320815
+--- !u!114 &1862394865023305372
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -482,8 +495,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8469188629702060528}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 775e89cac022cf7448a9ed08a362dbf3, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b0a321aeaada5f4590cdfb2d02e576d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelIndex: 3
+  panelIndex: 4
   needsInput: 1
