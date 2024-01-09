@@ -99,7 +99,7 @@ public class UnitScript : MonoBehaviour , IDamageable
     }
     public void Damage(float damage)
     {
-
+        Debug.Log("took damage");
     }
 }
 public enum Faction

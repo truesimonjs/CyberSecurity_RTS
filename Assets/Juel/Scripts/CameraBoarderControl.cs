@@ -25,15 +25,15 @@ public class CameraBoarderControl : MonoBehaviour
     void Update()
     {
         //Forward
-        if(Input.mousePosition.y > screenHeight) { Debug.Log("Front"); transform.position += Vector3.forward * Time.deltaTime; }
+        if(Input.mousePosition.y > screenHeight) {  transform.position += Vector3.forward * Time.deltaTime* panSpeed; }
 
         //Back
-        if (Input.mousePosition.y < 0) { Debug.Log("Back"); transform.position += Vector3.back * Time.deltaTime; }
+        if (Input.mousePosition.y < 0) { transform.position += Vector3.back * Time.deltaTime* panSpeed; }
 
         //Right
-        if (Input.mousePosition.x > screenWidth) { Debug.Log("Right"); transform.position += Vector3.right * Time.deltaTime; }
+        if (Input.mousePosition.x > screenWidth) {  transform.position += Vector3.right * Time.deltaTime* panSpeed; }
 
         //Left
-        if(Input.mousePosition.x < 0) { Debug.Log("Left"); transform.position += Vector3.left * Time.deltaTime; }
+        if(Input.mousePosition.x < 0) { transform.position += Vector3.left * Time.deltaTime* panSpeed; }
     }
 }
