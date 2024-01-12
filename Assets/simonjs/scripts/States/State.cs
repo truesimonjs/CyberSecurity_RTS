@@ -22,6 +22,10 @@ public class State : MonoBehaviour
     {
         return new StateData();
     }
+    public virtual BuildingState getBuilder()
+    {
+        return null;
+    }
     public virtual void StateUpdate()
     {
 
@@ -60,10 +64,13 @@ public class State : MonoBehaviour
 public class StateData
 {
     public string iconText;
-    public StateData(string iconText =" ")
+    public bool isBuilder;
+    public StateData(string iconText =" ",bool isBuilder = false)
     {
+        this.isBuilder = isBuilder;
         this.iconText = iconText;
     }
+
 }
 public class UnitOrder
 {
@@ -94,6 +101,10 @@ public class UnitOrder
         constructed();
 
     }
+    public void SetState(UnitScript unit)
+    {
+        stateT = unit.PanelStates[index].GetType();
+    }
     public State GetState(State[] states)
     {
         if(stateT == null)
@@ -103,11 +114,15 @@ public class UnitOrder
         }
         foreach (State state in states)
         {
-            if (state.GetType() == stateT)
+            
+            if (state!=null&& state.GetType() == stateT)
             {
+                
                 return state;
             }
+            
         }
+       
         return null;
     }
     public void constructed()

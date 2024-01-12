@@ -9,6 +9,8 @@ public class AttackState : State
     private NavMeshAgent agent;
     private bool targetIsTransform;
     private UnitScript targetUnit;
+    
+    private bool oldHasTarget = false;
     public override StateData GetData()
     {
         return myData;
@@ -21,8 +23,10 @@ public class AttackState : State
         agent.SetDestination(targetPos);
         if (targetIsTransform)
         {
+            
             targetUnit = targetT.GetComponent<UnitScript>();
         }
+       
     }
 
     public override void StateExit()
@@ -35,6 +39,16 @@ public class AttackState : State
         if (targetIsTransform)
         {
             owner.combatscript.AttackTarget(targetUnit);
+        }
+        else 
+        {
+            bool hasTarget = owner.combatscript.HasTarget();
+            if (!hasTarget&&oldHasTarget)
+            {
+                agent.SetDestination(targetPos);
+
+            }
+            oldHasTarget = hasTarget;
         }
     }
 }

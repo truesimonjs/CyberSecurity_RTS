@@ -5,34 +5,48 @@ using UnityEngine.AI;
 
 public class CombatScript : MonoBehaviour
 {
-    float range = 5;
-    float aggro = 5;
-    float leash = 10;
+
     UnitScript target;
     private NavMeshAgent agent;
     UnitScript owner;
+    private float nextFire;
+    private Vector3 origin;
     private void Start()
     {
         owner = GetComponent<UnitScript>();
         agent = GetComponent<NavMeshAgent>();
     }
-    public bool CheckCombat()
+    public bool HasTarget()
     {
         
         
-        if (target==null || !findTarget() )
+        if (target==null && !findTarget() )
         {
-           
+            return false;
         }
-        return false;
+        else
+        {
+            if (Vector3.Distance(origin,target.transform.position)<owner.stats.leash)
+            {
+                AttackTarget(target);
+                return true;
+            }
+            target = null;
+            return false;
+        }
     }
     public void AttackTarget(UnitScript target)
     {
-        if (Vector3.Distance(transform.position, target.transform.position) <= range)
+        if (Vector3.Distance(transform.position, target.transform.position) <= owner.stats.range)
         {
+            if (nextFire<Time.time)
+            {
             agent.ResetPath();
-
-            target.Damage(1);
+                
+                
+            target.Damage(owner.stats.damage);
+                nextFire = Time.time + owner.stats.attackCD;
+            }
         }
         else
         {
@@ -41,15 +55,16 @@ public class CombatScript : MonoBehaviour
     }
     public bool findTarget()
     {
-        Collider[] unitsInRange = Physics.OverlapSphere(transform.position, aggro, LayerMask.GetMask("Unit"));
+        Collider[] unitsInRange = Physics.OverlapSphere(transform.position, owner.stats.aggro, LayerMask.GetMask("Unit"));
       
         for (int i = 0; i < unitsInRange.Length; i++)
         {
             UnitScript unit = unitsInRange[i].GetComponent<UnitScript>();
-            if (unit.faction == Faction.Hostile)
+            if (unit.team != owner.team)
             {
-
+                
                 target = unit;
+                origin = transform.position;
                 return true;
             }
         }

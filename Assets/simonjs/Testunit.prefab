@@ -395,7 +395,8 @@ MonoBehaviour:
   followTarget: {fileID: 0}
   selectDisplay: {fileID: 3011469921618533115}
   combatscript: {fileID: 0}
-  faction: 0
+  stats: {fileID: 11400000, guid: 7c284eaeef3f4904b9d74f1482dfceaa, type: 2}
+  team: 0
   listcount: 0
 --- !u!114 &4290500355015378742
 MonoBehaviour:
@@ -422,6 +423,7 @@ GameObject:
   - component: {fileID: 6961232124192865956}
   - component: {fileID: 4149332211426890033}
   - component: {fileID: 1862394865023305372}
+  - component: {fileID: 6805486542884668570}
   m_Layer: 6
   m_Name: States
   m_TagString: Untagged
@@ -500,3 +502,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelIndex: 4
   needsInput: 1
+--- !u!114 &6805486542884668570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8469188629702060528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e82a5e8e96b9a8240a3e397c99ef5182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelIndex: 5
+  needsInput: 1
+  prefab: {fileID: 33427533703136632, guid: dc6e6f5e0a339f344ae3170a9b8f0d06, type: 3}

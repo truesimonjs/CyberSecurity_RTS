@@ -11,11 +11,13 @@ public class UnitPanel : MonoBehaviour
     public static UnitPanel instance;
     //public GameObject[] ButtonObjects;
     private UnitButton[] buttons;
+    private TowerDraw towerDraw;
     private void Awake()
     {
 
         instance = this;
         buttons = GameObject.FindObjectsOfType<UnitButton>(true);
+        towerDraw = GetComponent<TowerDraw>();
 
     }
     public void PressButton(int id)
@@ -24,6 +26,10 @@ public class UnitPanel : MonoBehaviour
         
         if (selected.PanelStates[id].needsInput)
         {
+            if (selected.PanelStates[id].GetData().isBuilder)
+            {
+                towerDraw.BeginPlacement(selected.PanelStates[id].getBuilder().prefab);
+            }
             StartCoroutine(CheckClick());
         }
         else
@@ -73,6 +79,13 @@ public class UnitPanel : MonoBehaviour
     }
     private void AddState(List<UnitScript> units,UnitOrder order, bool replaceCurrent = true)
     {
+        Debug.Log(selected);
+        order.SetState(selected);
+
+        if (selected.PanelStates[order.index].GetData().isBuilder)
+        {
+            order.TargetT = towerDraw.phantomTower.transform;
+        }
         foreach (UnitScript unit in units)
         {
             unit.AddState(order, replaceCurrent);
@@ -80,6 +93,7 @@ public class UnitPanel : MonoBehaviour
     }
     public IEnumerator CheckClick()
     {
+        bool shouldEndPlacement = true;
         while (SelectedState != -1)
         {
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())  //ispointerovergameboject returns true if you clicked on ui, i reverse it to prevent issueing commands while clicking on ui
@@ -100,9 +114,13 @@ public class UnitPanel : MonoBehaviour
                 SelectedState = Input.GetButton("shift")? SelectedState:-1;
 
                 Debug.Log(hit.point);
+                shouldEndPlacement = false;
             }
             yield return null;
         }
+        towerDraw.EndPlacement(shouldEndPlacement);
 
     }
+
+    
 }

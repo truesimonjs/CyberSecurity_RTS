@@ -12,10 +12,11 @@ public class UnitScript : MonoBehaviour , IDamageable
     public Transform followTarget;
     public GameObject selectDisplay;
     private LineRenderer orderLine;
-    public CombatScript combatscript;
+   [HideInInspector] public CombatScript combatscript;
     //
+    public UnitStats stats;
     private bool isSelected;
-    public Faction faction;
+    public Team team;
     //temp var for debug
     public int listcount;
     private void Start()
@@ -102,7 +103,7 @@ public class UnitScript : MonoBehaviour , IDamageable
         Debug.Log("took damage");
     }
 }
-public enum Faction
+public enum Team
 {
     Friendly,Hostile
 
