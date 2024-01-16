@@ -17,12 +17,12 @@ public class UnitScript : MonoBehaviour, IDamageable
     public Team team;
     //temp var for debug
     public int listcount;
-    private void Awake()
+    private void Start()
     {
         orderLine = GetComponentInChildren<LineRenderer>();
         combatscript = GetComponent<CombatScript>();
         currentState = PanelStates[1]; //1 is idlestate
-        
+
     }
 
     private void Update()
@@ -89,13 +89,21 @@ public class UnitScript : MonoBehaviour, IDamageable
     }
     private void ReloadMarkers()
     {
-        orderLine.positionCount = Queue.Count + 2;
-        orderLine.SetPosition(0, this.transform.position);
-        orderLine.SetPosition(1, currentState.targetPos + Vector3.up * transform.position.y);
-
-        for (int i = 2; i < Queue.Count + 2; i++)
+        if (currentState != PanelStates[1])
         {
-            orderLine.SetPosition(i, Queue[i - 2].vectorTarget + Vector3.up * transform.position.y);
+
+
+            orderLine.positionCount = Queue.Count + 2;
+            orderLine.SetPosition(0, this.transform.position);
+            orderLine.SetPosition(1, currentState.targetPos + Vector3.up * 2);
+
+            for (int i = 2; i < Queue.Count + 2; i++)
+            {
+                orderLine.SetPosition(i, Queue[i - 2].vectorTarget + Vector3.up * 2);
+            }
+        } else
+        {
+            orderLine.positionCount = 0;
         }
     }
     public void Damage(float damage)

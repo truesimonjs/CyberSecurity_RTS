@@ -80,7 +80,7 @@ public class UnitPanel : MonoBehaviour
     }
     private void AddState(List<UnitScript> units, UnitOrder order, bool replaceCurrent = true)
     {
-        Debug.Log(selected);
+
         order.SetState(selected);
 
         if (selected.PanelStates[order.index].GetData().isBuilder)
@@ -90,6 +90,7 @@ public class UnitPanel : MonoBehaviour
             {
                 return;
             }
+
         }
         foreach (UnitScript unit in units)
         {
@@ -118,7 +119,7 @@ public class UnitPanel : MonoBehaviour
                 }
                 SelectedState = Input.GetButton("shift") ? SelectedState : -1;
 
-                Debug.Log(hit.point);
+
 
             }
             yield return null;

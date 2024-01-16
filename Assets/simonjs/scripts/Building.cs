@@ -6,8 +6,8 @@ public class Building : MonoBehaviour
     private Material[] finishMaterials;
     private MeshRenderer[] meshes;
     private UnitScript unitScript;
-    
-   
+
+
     public void Begin()
     {
         unitScript = GetComponent<UnitScript>();
