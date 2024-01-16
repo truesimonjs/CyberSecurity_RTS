@@ -14,6 +14,7 @@ public class BuildingState : State
     {
         base.Awake();
         agent = owner.GetComponent<NavMeshAgent>();
+
     }
     public override StateData GetData()
     {

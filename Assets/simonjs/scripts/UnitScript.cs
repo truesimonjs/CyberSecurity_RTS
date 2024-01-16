@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UnitScript : MonoBehaviour, IDamageable
 {
-
+    public float Hp;
     public State[] PanelStates = new State[15];
     public State currentState;
     public List<UnitOrder> Queue = new List<UnitOrder>();
@@ -17,6 +17,10 @@ public class UnitScript : MonoBehaviour, IDamageable
     public Team team;
     //temp var for debug
     public int listcount;
+    private void Awake()
+    {
+        Hp = stats.maxHp;
+    }
     private void Start()
     {
         orderLine = GetComponentInChildren<LineRenderer>();
@@ -101,14 +105,19 @@ public class UnitScript : MonoBehaviour, IDamageable
             {
                 orderLine.SetPosition(i, Queue[i - 2].vectorTarget + Vector3.up * 2);
             }
-        } else
+        }
+        else
         {
             orderLine.positionCount = 0;
         }
     }
     public void Damage(float damage)
     {
-        Debug.Log("took damage");
+        Hp -= damage;
+        if (Hp <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
 public enum Team
