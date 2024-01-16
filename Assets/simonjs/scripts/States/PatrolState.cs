@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,13 +16,13 @@ public class PatrolState : State
         wasFirst = owner.Queue.Count == 0;
         if (wasFirst)
         {
-            
+
             originPos = transform.position;
-            
+
         }
         agent = owner.GetComponent<NavMeshAgent>();
         agent.SetDestination(targetPos);
-       
+
 
 
 
@@ -32,22 +30,22 @@ public class PatrolState : State
     public override void StateUpdate()
     {
         base.StateUpdate();
-       if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
+        if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
         {
             if (wasFirst)
             {
-                owner.AddState(new UnitOrder(panelIndex, originPos), false); 
+                owner.AddState(new UnitOrder(panelIndex, originPos), false);
             }
-            owner.AddState(new UnitOrder(panelIndex, targetPos),false);  //adds itself to the back of the queue
+            owner.AddState(new UnitOrder(panelIndex, targetPos), false);  //adds itself to the back of the queue
             owner.NextState();
 
         }
-        
+
 
     }
     public override void StateExit()
     {
-        
+
         agent.ResetPath();
     }
 }

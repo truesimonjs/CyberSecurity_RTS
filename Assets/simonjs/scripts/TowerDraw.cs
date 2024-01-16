@@ -1,38 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerDraw : MonoBehaviour
 {
-    [HideInInspector]public GameObject phantomTower;
+    [HideInInspector] public GameObject phantomTower;
     private bool placing = false;
-    private bool isBuildable;
+    [HideInInspector] public bool isBuildable;
     private bool wasBuildable;
     private LayerMask rayMask; // ray that projects the building to first thing it hits
     private LayerMask buildMask; //mask for the check of wether or not theres space
-    [SerializeField] private Material canBuild;
-    [SerializeField] private Material cantBuild;
+    [SerializeField] public Material canBuild;
+    [SerializeField] public Material cantBuild;
+    public static TowerDraw instance;
+
     private void Awake()
     {
+        instance = this;
         rayMask = LayerMask.GetMask("Buildable");
-        buildMask = LayerMask.GetMask("Buildings");
+        buildMask = LayerMask.GetMask("Unit");
     }
     public void BeginPlacement(GameObject prefab)
     {
         placing = true;
-       phantomTower=Instantiate(prefab.GetComponent<Building>().visualObject);
+        phantomTower = Instantiate(prefab.GetComponent<Building>().visualObject);
         updateBuildColor(true);
 
     }
-    public void EndPlacement(bool destroyPhantom)
+    public void EndPlacement()
     {
-        if (destroyPhantom && phantomTower!=null)
+        if (phantomTower != null)
         {
             Destroy(phantomTower);
         }
         placing = false;
-
-        
     }
     private void Update()
     {

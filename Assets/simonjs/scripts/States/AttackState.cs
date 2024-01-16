@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.AI;
 
 public class AttackState : State
@@ -9,7 +6,7 @@ public class AttackState : State
     private NavMeshAgent agent;
     private bool targetIsTransform;
     private UnitScript targetUnit;
-    
+
     private bool oldHasTarget = false;
     public override StateData GetData()
     {
@@ -23,10 +20,10 @@ public class AttackState : State
         agent.SetDestination(targetPos);
         if (targetIsTransform)
         {
-            
+
             targetUnit = targetT.GetComponent<UnitScript>();
         }
-       
+
     }
 
     public override void StateExit()
@@ -40,10 +37,10 @@ public class AttackState : State
         {
             owner.combatscript.AttackTarget(targetUnit);
         }
-        else 
+        else
         {
             bool hasTarget = owner.combatscript.HasTarget();
-            if (!hasTarget&&oldHasTarget)
+            if (!hasTarget && oldHasTarget)
             {
                 agent.SetDestination(targetPos);
 

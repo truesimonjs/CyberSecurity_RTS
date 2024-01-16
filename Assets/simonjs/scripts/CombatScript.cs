@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,15 +16,15 @@ public class CombatScript : MonoBehaviour
     }
     public bool HasTarget()
     {
-        
-        
-        if (target==null && !findTarget() )
+
+
+        if (target == null && !findTarget())
         {
             return false;
         }
         else
         {
-            if (Vector3.Distance(origin,target.transform.position)<owner.stats.leash)
+            if (Vector3.Distance(origin, target.transform.position) < owner.stats.leash)
             {
                 AttackTarget(target);
                 return true;
@@ -39,12 +37,12 @@ public class CombatScript : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, target.transform.position) <= owner.stats.range)
         {
-            if (nextFire<Time.time)
+            if (nextFire < Time.time)
             {
-            agent.ResetPath();
-                
-                
-            target.Damage(owner.stats.damage);
+                agent.ResetPath();
+
+
+                target.Damage(owner.stats.damage);
                 nextFire = Time.time + owner.stats.attackCD;
             }
         }
@@ -56,13 +54,13 @@ public class CombatScript : MonoBehaviour
     public bool findTarget()
     {
         Collider[] unitsInRange = Physics.OverlapSphere(transform.position, owner.stats.aggro, LayerMask.GetMask("Unit"));
-      
+
         for (int i = 0; i < unitsInRange.Length; i++)
         {
             UnitScript unit = unitsInRange[i].GetComponent<UnitScript>();
             if (unit.team != owner.team)
             {
-                
+
                 target = unit;
                 origin = transform.position;
                 return true;
@@ -70,5 +68,5 @@ public class CombatScript : MonoBehaviour
         }
         return false;
     }
-   
+
 }

@@ -1,4 +1,3 @@
-using UnityEngine;
 public class IdleState : State
 {
     private static StateData mydata = new StateData("S");
@@ -9,7 +8,7 @@ public class IdleState : State
     public override void StateEnter()
     {
         base.StateEnter();
-        
+
     }
     public override StateData GetData()
     {
@@ -18,7 +17,7 @@ public class IdleState : State
     public override void StateExit()
     {
         base.StateExit();
-        
+
     }
     public override void StateUpdate()
     {

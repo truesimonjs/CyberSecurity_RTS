@@ -14,16 +14,17 @@ public class UnitPanel : MonoBehaviour
     private TowerDraw towerDraw;
     private void Awake()
     {
-
         instance = this;
+    }
+    private void Start()
+    {
         buttons = GameObject.FindObjectsOfType<UnitButton>(true);
-        towerDraw = GetComponent<TowerDraw>();
-
+        towerDraw = TowerDraw.instance; //could just use instance instead of variable but i used towerdraw a lot already so i don't want to change it all right now. maybe later
     }
     public void PressButton(int id)
     {
         SelectedState = id;
-        
+
         if (selected.PanelStates[id].needsInput)
         {
             if (selected.PanelStates[id].GetData().isBuilder)
@@ -35,11 +36,11 @@ public class UnitPanel : MonoBehaviour
         else
         {
 
-            AddState(SelectedList,new UnitOrder(id),!Input.GetButton("shift"));
+            AddState(SelectedList, new UnitOrder(id), !Input.GetButton("shift"));
             SelectedState = Input.GetButton("shift") ? SelectedState : -1;
 
         }
-       
+
 
 
     }
@@ -60,7 +61,7 @@ public class UnitPanel : MonoBehaviour
             for (int i = 0; i < buttons.Length; i++)
             {
                 UnitButton button = buttons[i];
-                
+
                 button.gameObject.SetActive(selected.PanelStates[button.index] != null);
                 if (button.gameObject.activeSelf)
                 {
@@ -71,20 +72,24 @@ public class UnitPanel : MonoBehaviour
     }
     public void MassSelect(bool active)
     {
-        foreach(UnitScript unit in SelectedList)
+        foreach (UnitScript unit in SelectedList)
         {
             unit.GotSelected(active);
         }
         if (!active) { SelectedList.Clear(); }
     }
-    private void AddState(List<UnitScript> units,UnitOrder order, bool replaceCurrent = true)
+    private void AddState(List<UnitScript> units, UnitOrder order, bool replaceCurrent = true)
     {
         Debug.Log(selected);
         order.SetState(selected);
 
         if (selected.PanelStates[order.index].GetData().isBuilder)
         {
-            order.TargetT = towerDraw.phantomTower.transform;
+            order.vectorTarget = towerDraw.phantomTower.transform.position;
+            if (!TowerDraw.instance.isBuildable)
+            {
+                return;
+            }
         }
         foreach (UnitScript unit in units)
         {
@@ -93,7 +98,7 @@ public class UnitPanel : MonoBehaviour
     }
     public IEnumerator CheckClick()
     {
-        bool shouldEndPlacement = true;
+
         while (SelectedState != -1)
         {
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())  //ispointerovergameboject returns true if you clicked on ui, i reverse it to prevent issueing commands while clicking on ui
@@ -105,22 +110,22 @@ public class UnitPanel : MonoBehaviour
                 if (LayerMask.NameToLayer("Unit") == hit.collider.gameObject.layer)
                 {
                     Debug.Log("target was unit");
-                    AddState(SelectedList,new UnitOrder(SelectedState,hit.collider.gameObject.transform), !Input.GetButton("shift"));
+                    AddState(SelectedList, new UnitOrder(SelectedState, hit.collider.gameObject.transform), !Input.GetButton("shift"));
                 }
                 else
                 {
-                    AddState(SelectedList,new UnitOrder(SelectedState,hit.point), !Input.GetButton("shift"));   
+                    AddState(SelectedList, new UnitOrder(SelectedState, hit.point), !Input.GetButton("shift"));
                 }
-                SelectedState = Input.GetButton("shift")? SelectedState:-1;
+                SelectedState = Input.GetButton("shift") ? SelectedState : -1;
 
                 Debug.Log(hit.point);
-                shouldEndPlacement = false;
+
             }
             yield return null;
         }
-        towerDraw.EndPlacement(shouldEndPlacement);
+        towerDraw.EndPlacement();
 
     }
 
-    
+
 }

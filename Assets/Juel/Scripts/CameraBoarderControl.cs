@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraBoarderControl : MonoBehaviour
@@ -25,15 +23,15 @@ public class CameraBoarderControl : MonoBehaviour
     void Update()
     {
         //Forward
-        if(Input.mousePosition.y > screenHeight) {  transform.position += Vector3.forward * Time.deltaTime* panSpeed; }
+        if (Input.mousePosition.y > screenHeight) { transform.position += Vector3.forward * Time.deltaTime * panSpeed; }
 
         //Back
-        if (Input.mousePosition.y < 0) { transform.position += Vector3.back * Time.deltaTime* panSpeed; }
+        if (Input.mousePosition.y < 0) { transform.position += Vector3.back * Time.deltaTime * panSpeed; }
 
         //Right
-        if (Input.mousePosition.x > screenWidth) {  transform.position += Vector3.right * Time.deltaTime* panSpeed; }
+        if (Input.mousePosition.x > screenWidth) { transform.position += Vector3.right * Time.deltaTime * panSpeed; }
 
         //Left
-        if(Input.mousePosition.x < 0) { transform.position += Vector3.left * Time.deltaTime* panSpeed; }
+        if (Input.mousePosition.x < 0) { transform.position += Vector3.left * Time.deltaTime * panSpeed; }
     }
 }
