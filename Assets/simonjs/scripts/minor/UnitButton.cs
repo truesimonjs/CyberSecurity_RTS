@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 public class UnitButton : MonoBehaviour
 {
     public int index;
@@ -14,7 +11,7 @@ public class UnitButton : MonoBehaviour
     public void buttonUpdate(StateData data)
     {
         text.text = data.iconText;
-       
+
     }
     public void buttonClick()
     {
