@@ -31,14 +31,15 @@ public class IdleState : State
     {
         base.StateUpdate();
         targetPos = this.transform.position;
-        if (owner.Queue.Count > 0)
+        if (!owner.isIdle())
         {
+            
             owner.NextState();
         }
         else
         {
             owner.combatscript.HasTarget();
-            Debug.Log("ran combatscript");
+           
         }
     }
 }

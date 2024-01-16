@@ -12,6 +12,7 @@ public class UnitPanel : MonoBehaviour
     //public GameObject[] ButtonObjects;
     private UnitButton[] buttons;
     private TowerDraw towerDraw;
+    public List<UnitScript>[] SavedGroups = new List<UnitScript>[9];
     private void Awake()
     {
         instance = this;
@@ -20,6 +21,13 @@ public class UnitPanel : MonoBehaviour
     {
         buttons = GameObject.FindObjectsOfType<UnitButton>(true);
         towerDraw = TowerDraw.instance; //could just use instance instead of variable but i used towerdraw a lot already so i don't want to change it all right now. maybe later
+    }
+    private void Update()
+    {
+       if (Input.GetMouseButtonDown(1))
+        {
+            SelectedState=  -1;
+        }
     }
     public void PressButton(int id)
     {
@@ -48,7 +56,7 @@ public class UnitPanel : MonoBehaviour
 
     public void selectUnit(UnitScript unit)
     {
-        if (SelectedState == -1)
+        if (SelectedState == -1 && unit.team.isPlayer)
         {
             if (!Input.GetButton("shift"))
             {
@@ -90,6 +98,24 @@ public class UnitPanel : MonoBehaviour
             {
                 return;
             }
+            int LeastOrder = 0;
+
+            for (int i = 1; i < units.Count; i++)
+            {
+                if (units[i].isIdle())
+                {
+                    LeastOrder = i;
+                    break;
+                }
+                if (units[i].Queue.Count < units[LeastOrder].Queue.Count)
+                {
+                    LeastOrder = i;
+                }
+            }
+                units[LeastOrder].AddState(order, replaceCurrent);
+                return;
+            
+            
 
         }
         foreach (UnitScript unit in units)
@@ -127,6 +153,7 @@ public class UnitPanel : MonoBehaviour
         towerDraw.EndPlacement();
 
     }
+    
 
 
 }

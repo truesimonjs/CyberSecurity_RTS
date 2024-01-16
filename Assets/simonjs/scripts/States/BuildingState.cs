@@ -30,6 +30,7 @@ public class BuildingState : State
     {
         myOrder = Instantiate(prefab, targetPos, Quaternion.identity);
         myOrder.GetComponent<Building>().Begin();
+        myOrder.GetComponent<UnitScript>().team = owner.team;
         agent.SetDestination(targetPos);
     }
 

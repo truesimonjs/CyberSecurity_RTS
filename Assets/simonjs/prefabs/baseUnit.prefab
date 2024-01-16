@@ -325,6 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa339d2250db84a4689fbe9df538ccdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Hp: 0
   PanelStates:
   - {fileID: 0}
   - {fileID: 0}
@@ -345,7 +346,7 @@ MonoBehaviour:
   selectDisplay: {fileID: 3011469921618533115}
   combatscript: {fileID: 0}
   stats: {fileID: 11400000, guid: 7c284eaeef3f4904b9d74f1482dfceaa, type: 2}
-  team: 0
+  team: {fileID: 11400000, guid: 4c93c7755aa2f7e4bab4486c4b45c0de, type: 2}
   listcount: 0
 --- !u!114 &4290500355015378742
 MonoBehaviour:

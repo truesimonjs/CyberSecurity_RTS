@@ -14,7 +14,8 @@ public class UnitScript : MonoBehaviour, IDamageable
     //
     public UnitStats stats;
     private bool isSelected;
-    public Team team;
+    //public Team team;
+    public TeamManager team;
     //temp var for debug
     public int listcount;
     private void Awake()
@@ -26,6 +27,8 @@ public class UnitScript : MonoBehaviour, IDamageable
         orderLine = GetComponentInChildren<LineRenderer>();
         combatscript = GetComponent<CombatScript>();
         currentState = PanelStates[1]; //1 is idlestate
+        
+        
 
     }
 
@@ -65,9 +68,9 @@ public class UnitScript : MonoBehaviour, IDamageable
             UnitOrder order = Queue[0];
             currentState = order.GetState(PanelStates);
             //currentState = PanelStates[Queue[0].index];
-
-
             Queue.RemoveAt(0);
+
+
             currentState.StateEnter(order);
 
         }
@@ -93,7 +96,7 @@ public class UnitScript : MonoBehaviour, IDamageable
     }
     private void ReloadMarkers()
     {
-        if (currentState != PanelStates[1])
+        if (!isIdle())
         {
 
 
@@ -110,6 +113,11 @@ public class UnitScript : MonoBehaviour, IDamageable
         {
             orderLine.positionCount = 0;
         }
+    }
+    public bool isIdle()
+    {
+        //Debug.Log(currentState == PanelStates[1] && Queue.Count < 1);
+        return (currentState == PanelStates[1] && Queue.Count == 0);
     }
     public void Damage(float damage)
     {
