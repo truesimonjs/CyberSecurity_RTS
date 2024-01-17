@@ -47,10 +47,10 @@ public class BuildingState : State
     {
         if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
         {
-            if (owner.team.ressource>building.cost)
+            if (owner.team.CanAfford(building.cost))
             {
-                owner.team.ressource -= building.cost;
-            building.finishBuild();
+                owner.team.useRessource(building.cost);
+                building.finishBuild();
 
             } else
             {

@@ -3,7 +3,8 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     public GameObject visualObject;
-    public int cost;
+    //public int cost;
+    public ressources cost = new ressources();
     private Material[] finishMaterials;
     private MeshRenderer[] meshes;
     private UnitScript unitScript;

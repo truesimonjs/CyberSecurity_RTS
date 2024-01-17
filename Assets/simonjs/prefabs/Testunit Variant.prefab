@@ -95,6 +95,14 @@ PrefabInstance:
       propertyPath: cost
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 1712604487724816147, guid: acf2f03281248a04b84505d73b249113, type: 3}
+      propertyPath: cost.value1
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712604487724816147, guid: acf2f03281248a04b84505d73b249113, type: 3}
+      propertyPath: cost.value2
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2212225925789740428, guid: acf2f03281248a04b84505d73b249113, type: 3}
       propertyPath: prefab
       value: 
