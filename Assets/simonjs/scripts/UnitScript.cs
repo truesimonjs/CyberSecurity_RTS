@@ -4,8 +4,8 @@ using UnityEngine;
 public class UnitScript : MonoBehaviour, IDamageable
 {
     public float Hp;
-    public State[] PanelStates = new State[15];
-    public State currentState;
+    [HideInInspector]public State[] PanelStates = new State[15];
+    private State currentState;
     public List<UnitOrder> Queue = new List<UnitOrder>();
     //references
     public GameObject selectDisplay;
@@ -16,8 +16,7 @@ public class UnitScript : MonoBehaviour, IDamageable
     private bool isSelected;
     //public Team team;
     public TeamManager team;
-    //temp var for debug
-    public int listcount;
+  
     private void Awake()
     {
         Hp = stats.maxHp;
@@ -36,7 +35,7 @@ public class UnitScript : MonoBehaviour, IDamageable
     {
 
         currentState?.StateUpdate();
-        listcount = Queue.Count;
+        
         if (isSelected)
         {
             ReloadMarkers();

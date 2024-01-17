@@ -91,6 +91,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1712604487724816147, guid: acf2f03281248a04b84505d73b249113, type: 3}
+      propertyPath: cost
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2212225925789740428, guid: acf2f03281248a04b84505d73b249113, type: 3}
+      propertyPath: prefab
+      value: 
+      objectReference: {fileID: 5882181036100579547}
     - target: {fileID: 4886086498863992513, guid: acf2f03281248a04b84505d73b249113, type: 3}
       propertyPath: m_Name
       value: Testunit Variant
@@ -150,5 +158,10 @@ PrefabInstance:
 --- !u!4 &1481490002119625841 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 495438814218334827, guid: acf2f03281248a04b84505d73b249113, type: 3}
+  m_PrefabInstance: {fileID: 1328396640197721626}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5882181036100579547 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4886086498863992513, guid: acf2f03281248a04b84505d73b249113, type: 3}
   m_PrefabInstance: {fileID: 1328396640197721626}
   m_PrefabAsset: {fileID: 0}
