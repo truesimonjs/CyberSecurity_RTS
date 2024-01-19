@@ -9,6 +9,10 @@ public class TeamManager : MonoBehaviour
     public Color teamColor = Color.white;
     public int ressource = 100;
     public ressources storage;
+    private void Update()
+    {
+       
+    }
     public bool CanAfford(ressources cost)
     {
         return cost.value1 <= storage.value1 && cost.value2 <= storage.value2;
