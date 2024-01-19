@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class UnitScript : MonoBehaviour, IDamageable
 {
-
-    public State[] PanelStates = new State[15];
-    public State currentState;
+    public float Hp;
+    [HideInInspector]public State[] PanelStates = new State[15];
+    private State currentState;
     public List<UnitOrder> Queue = new List<UnitOrder>();
     //references
     public GameObject selectDisplay;
@@ -14,22 +14,28 @@ public class UnitScript : MonoBehaviour, IDamageable
     //
     public UnitStats stats;
     private bool isSelected;
-    public Team team;
-    //temp var for debug
-    public int listcount;
+    //public Team team;
+    public TeamManager team;
+  
     private void Awake()
+    {
+        Hp = stats.maxHp;
+    }
+    private void Start()
     {
         orderLine = GetComponentInChildren<LineRenderer>();
         combatscript = GetComponent<CombatScript>();
         currentState = PanelStates[1]; //1 is idlestate
         
+        
+
     }
 
     private void Update()
     {
 
         currentState?.StateUpdate();
-        listcount = Queue.Count;
+        
         if (isSelected)
         {
             ReloadMarkers();
@@ -61,9 +67,9 @@ public class UnitScript : MonoBehaviour, IDamageable
             UnitOrder order = Queue[0];
             currentState = order.GetState(PanelStates);
             //currentState = PanelStates[Queue[0].index];
-
-
             Queue.RemoveAt(0);
+
+
             currentState.StateEnter(order);
 
         }
@@ -89,18 +95,36 @@ public class UnitScript : MonoBehaviour, IDamageable
     }
     private void ReloadMarkers()
     {
-        orderLine.positionCount = Queue.Count + 2;
-        orderLine.SetPosition(0, this.transform.position);
-        orderLine.SetPosition(1, currentState.targetPos + Vector3.up * transform.position.y);
-
-        for (int i = 2; i < Queue.Count + 2; i++)
+        if (!isIdle())
         {
-            orderLine.SetPosition(i, Queue[i - 2].vectorTarget + Vector3.up * transform.position.y);
+
+
+            orderLine.positionCount = Queue.Count + 2;
+            orderLine.SetPosition(0, this.transform.position);
+            orderLine.SetPosition(1, currentState.targetPos + Vector3.up * 2);
+
+            for (int i = 2; i < Queue.Count + 2; i++)
+            {
+                orderLine.SetPosition(i, Queue[i - 2].vectorTarget + Vector3.up * 2);
+            }
         }
+        else
+        {
+            orderLine.positionCount = 0;
+        }
+    }
+    public bool isIdle()
+    {
+        //Debug.Log(currentState == PanelStates[1] && Queue.Count < 1);
+        return (currentState == PanelStates[1] && Queue.Count == 0);
     }
     public void Damage(float damage)
     {
-        Debug.Log("took damage");
+        Hp -= damage;
+        if (Hp <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
 public enum Team

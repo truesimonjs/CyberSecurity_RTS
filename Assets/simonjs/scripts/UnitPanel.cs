@@ -12,14 +12,55 @@ public class UnitPanel : MonoBehaviour
     //public GameObject[] ButtonObjects;
     private UnitButton[] buttons;
     private TowerDraw towerDraw;
+    public List<UnitScript>[] SavedGroups = new List<UnitScript>[9];
+    public List<UnitScript> debug;
     private void Awake()
     {
         instance = this;
+        
     }
     private void Start()
     {
         buttons = GameObject.FindObjectsOfType<UnitButton>(true);
         towerDraw = TowerDraw.instance; //could just use instance instead of variable but i used towerdraw a lot already so i don't want to change it all right now. maybe later
+    }
+    private void Update()
+    {
+        debug = SavedGroups[1];
+       if (Input.GetMouseButtonDown(1))
+        {
+            SelectedState=  -1;
+        }
+        for (int i = 0; i < SavedGroups.Length; i++)
+        {
+           if(SjsUtillity.GetNumDown(i))
+            {
+                if (Input.GetKey(KeyCode.Z))
+                {
+                    
+                    SavedGroups[i] = new List<UnitScript>(SelectedList);
+                    continue;
+                }
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    Debug.Log("lshift down");
+                    //SavedGroups[i].AddRange(SelectedList);
+                    SjsUtillity.addRange<UnitScript>(ref SavedGroups[i], SelectedList);
+                    
+                    
+                    continue;
+                }
+
+                if (SavedGroups[i]!=null && SavedGroups[i].Count>0)
+                {
+
+                SelectedState = -1;
+                selectUnit(SavedGroups[i], false);
+                }
+                
+
+            }
+        }
     }
     public void PressButton(int id)
     {
@@ -32,6 +73,7 @@ public class UnitPanel : MonoBehaviour
                 towerDraw.BeginPlacement(selected.PanelStates[id].getBuilder().prefab);
             }
             StartCoroutine(CheckClick());
+
         }
         else
         {
@@ -46,11 +88,11 @@ public class UnitPanel : MonoBehaviour
     }
 
 
-    public void selectUnit(UnitScript unit)
+    public void selectUnit(UnitScript unit, bool saveOld = false)
     {
-        if (SelectedState == -1)
+        if (SelectedState == -1 && unit.team.isPlayer)
         {
-            if (!Input.GetButton("shift"))
+            if (!Input.GetButton("shift") && !saveOld)
             {
                 MassSelect(false);
             }
@@ -70,6 +112,18 @@ public class UnitPanel : MonoBehaviour
             }
         }
     }
+    public void selectUnit(List<UnitScript> units, bool saveOld=false)
+    {
+        if (!saveOld)
+        {
+        MassSelect(false);
+        }
+           
+        foreach (UnitScript unit in units.ToArray())
+        {
+            selectUnit(unit, true);
+        }
+    }
     public void MassSelect(bool active)
     {
         foreach (UnitScript unit in SelectedList)
@@ -80,7 +134,7 @@ public class UnitPanel : MonoBehaviour
     }
     private void AddState(List<UnitScript> units, UnitOrder order, bool replaceCurrent = true)
     {
-        Debug.Log(selected);
+
         order.SetState(selected);
 
         if (selected.PanelStates[order.index].GetData().isBuilder)
@@ -90,6 +144,25 @@ public class UnitPanel : MonoBehaviour
             {
                 return;
             }
+            int LeastOrder = 0;
+
+            for (int i = 1; i < units.Count; i++)
+            {
+                if (units[i].isIdle())
+                {
+                    LeastOrder = i;
+                    break;
+                }
+                if (units[i].Queue.Count < units[LeastOrder].Queue.Count)
+                {
+                    LeastOrder = i;
+                }
+            }
+                units[LeastOrder].AddState(order, replaceCurrent);
+                return;
+            
+            
+
         }
         foreach (UnitScript unit in units)
         {
@@ -118,7 +191,7 @@ public class UnitPanel : MonoBehaviour
                 }
                 SelectedState = Input.GetButton("shift") ? SelectedState : -1;
 
-                Debug.Log(hit.point);
+
 
             }
             yield return null;
@@ -126,6 +199,7 @@ public class UnitPanel : MonoBehaviour
         towerDraw.EndPlacement();
 
     }
+    
 
 
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34a4fa3f1302ff4c8ed1a80dc67d324, type: 3}
   m_Name: unitStats
   m_EditorClassIdentifier: 
-  range: 5
+  range: 2
   damage: 1
   maxHp: 10
   attackCD: 1

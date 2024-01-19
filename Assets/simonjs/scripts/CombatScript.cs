@@ -14,6 +14,12 @@ public class CombatScript : MonoBehaviour
         owner = GetComponent<UnitScript>();
         agent = GetComponent<NavMeshAgent>();
     }
+    public void endCombat()
+    {
+        agent.ResetPath();
+        target = null;
+
+    }
     public bool HasTarget()
     {
 
@@ -29,8 +35,17 @@ public class CombatScript : MonoBehaviour
                 AttackTarget(target);
                 return true;
             }
-            target = null;
-            return false;
+            agent.SetDestination(origin);
+            if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
+            {
+                endCombat();
+                return false;
+
+            }
+            return true;     
+            
+
+            
         }
     }
     public void AttackTarget(UnitScript target)

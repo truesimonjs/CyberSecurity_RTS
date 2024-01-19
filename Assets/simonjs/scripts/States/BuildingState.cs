@@ -9,11 +9,11 @@ public class BuildingState : State
     private Building building;
     private NavMeshAgent agent;
     // multiple buildingtypes in 1 unit isn't possible without making empty inherited scripts as order only carries the script type
-    //attempting to order a building while having selected multiple isn't supported yet, all units would likely be ordered to build at the same spot. 
-    public override void Awake()
+        public override void Awake()
     {
         base.Awake();
         agent = owner.GetComponent<NavMeshAgent>();
+
     }
     public override StateData GetData()
     {
@@ -28,7 +28,9 @@ public class BuildingState : State
     public override void StateEnter()
     {
         myOrder = Instantiate(prefab, targetPos, Quaternion.identity);
-        myOrder.GetComponent<Building>().Begin();
+        building = myOrder.GetComponent<Building>();
+        building.Begin();
+        myOrder.GetComponent<UnitScript>().team = owner.team;
         agent.SetDestination(targetPos);
     }
 
@@ -45,7 +47,15 @@ public class BuildingState : State
     {
         if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
         {
-            myOrder.GetComponent<Building>().finishBuild();
+            if (owner.team.CanAfford(building.cost))
+            {
+                owner.team.useRessource(building.cost);
+                building.finishBuild();
+
+            } else
+            {
+                Destroy(myOrder);
+            }
             myOrder = null;
             owner.NextState();
         }
