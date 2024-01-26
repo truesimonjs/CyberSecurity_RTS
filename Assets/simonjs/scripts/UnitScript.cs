@@ -60,7 +60,7 @@ public class UnitScript : MonoBehaviour, IDamageable
 
     public void NextState()
     {
-        currentState.StateExit();
+        currentState?.StateExit();
 
         if (Queue.Count > 0)
         {

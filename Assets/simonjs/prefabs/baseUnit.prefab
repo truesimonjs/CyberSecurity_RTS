@@ -342,12 +342,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  currentState: {fileID: 0}
   selectDisplay: {fileID: 3011469921618533115}
   combatscript: {fileID: 0}
   stats: {fileID: 11400000, guid: 7c284eaeef3f4904b9d74f1482dfceaa, type: 2}
   team: {fileID: 11400000, guid: 4c93c7755aa2f7e4bab4486c4b45c0de, type: 2}
-  listcount: 0
 --- !u!114 &4290500355015378742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,6 +371,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualObject: {fileID: 7383522658434434315}
+  cost:
+    value1: 0
+    value2: 0
 --- !u!1 &7383522658434434315
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,7 +399,7 @@ Transform:
   m_GameObject: {fileID: 7383522658434434315}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

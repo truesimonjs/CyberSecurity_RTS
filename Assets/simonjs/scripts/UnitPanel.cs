@@ -64,6 +64,10 @@ public class UnitPanel : MonoBehaviour
     }
     public void PressButton(int id)
     {
+        if(selected== null) 
+        {
+            return; 
+        }
         SelectedState = id;
 
         if (selected.PanelStates[id].needsInput)

@@ -4,7 +4,7 @@ public class Building : MonoBehaviour
 {
     public GameObject visualObject;
     //public int cost;
-    public ressources cost = new ressources();
+    public Ressources cost = new Ressources();
     private Material[] finishMaterials;
     private MeshRenderer[] meshes;
     private UnitScript unitScript;

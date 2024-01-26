@@ -128,10 +128,9 @@ public class UnitOrder
     }
     public void constructed()
     {
-        if (stateT.GetType() != typeof(State))
+        if (stateT != typeof(State))
         {
-
-            Debug.LogError("created unityorder with type that does not inherit from State");
+            
         }
     }
     //deprecating maybe
