@@ -49,7 +49,7 @@ public class BuildingState : State
         {
             if (owner.team.CanAfford(building.cost))
             {
-                owner.team.useRessource(building.cost);
+                owner.team.ModifyRessources(building.cost);
                 building.finishBuild();
 
             } else

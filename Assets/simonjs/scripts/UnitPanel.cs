@@ -43,7 +43,7 @@ public class UnitPanel : MonoBehaviour
                 }
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    Debug.Log("lshift down");
+                   
                     //SavedGroups[i].AddRange(SelectedList);
                     SjsUtillity.addRange<UnitScript>(ref SavedGroups[i], SelectedList);
                     
@@ -64,6 +64,10 @@ public class UnitPanel : MonoBehaviour
     }
     public void PressButton(int id)
     {
+        if(selected== null) 
+        {
+            return; 
+        }
         SelectedState = id;
 
         if (selected.PanelStates[id].needsInput)
