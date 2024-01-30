@@ -117,6 +117,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Factory Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5324356453851773556, guid: acf2f03281248a04b84505d73b249113, type: 3}
+      propertyPath: m_Speed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5483866209055676948, guid: acf2f03281248a04b84505d73b249113, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.12
