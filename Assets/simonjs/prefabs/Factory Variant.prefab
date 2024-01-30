@@ -122,6 +122,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5483866209055676948, guid: acf2f03281248a04b84505d73b249113, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483866209055676948, guid: acf2f03281248a04b84505d73b249113, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483866209055676948, guid: acf2f03281248a04b84505d73b249113, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483866209055676948, guid: acf2f03281248a04b84505d73b249113, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.12
       objectReference: {fileID: 0}
@@ -197,7 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelIndex: 5
   needsInput: 1
-  prefab: {fileID: 5882181036100579547, guid: 00e8cb39931ac994daecc2184916d08a, type: 3}
+  prefab: {fileID: 4799201366794459655, guid: fcafaa75161b57041a322a85e5cc4ffc, type: 3}
   cost:
     value1: 20
     value2: 0
