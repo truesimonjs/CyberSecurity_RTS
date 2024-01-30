@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/alex/scene/alexscene.unity
+    guid: 0579ff6bda36d5a48866b3c8f677f7ab
+  - enabled: 1
+    path: Assets/alex/scene/GameOverScene.unity
+    guid: f7af5e5486a82af44b298faf13e294ef
   m_configObjects: {}
