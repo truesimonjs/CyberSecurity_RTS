@@ -11,6 +11,7 @@ public class UnitScript : MonoBehaviour, IDamageable
     public GameObject selectDisplay;
     private LineRenderer orderLine;
     [HideInInspector] public CombatScript combatscript;
+    [HideInInspector]public UnitAnim animScript;
     //
     public UnitStats stats;
     private bool isSelected;
