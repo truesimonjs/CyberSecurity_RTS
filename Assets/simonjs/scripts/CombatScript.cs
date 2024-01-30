@@ -35,7 +35,7 @@ public class CombatScript : MonoBehaviour
                 AttackTarget(target);
                 return true;
             }
-            agent.SetDestination(origin);
+            
             if (!agent.pathPending && agent.remainingDistance < agent.stoppingDistance)
             {
                 endCombat();
@@ -56,7 +56,7 @@ public class CombatScript : MonoBehaviour
             {
                 agent.ResetPath();
 
-
+                owner.animScript.Attack();
                 target.Damage(owner.stats.damage);
                 nextFire = Time.time + owner.stats.attackCD;
             }
@@ -64,6 +64,7 @@ public class CombatScript : MonoBehaviour
         else
         {
             agent.SetDestination(target.transform.position);
+            
         }
     }
     public bool findTarget()
