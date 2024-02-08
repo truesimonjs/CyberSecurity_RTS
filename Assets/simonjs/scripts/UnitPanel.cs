@@ -94,6 +94,7 @@ public class UnitPanel : MonoBehaviour
 
     public void selectUnit(UnitScript unit, bool saveOld = false)
     {
+        if (selected == null) { SelectedState = -1; }
         if (SelectedState == -1 && unit.team.isPlayer)
         {
             if (!Input.GetButton("shift") && !saveOld)

@@ -45,16 +45,18 @@ public class UnitScript : MonoBehaviour, IDamageable
 
     public void AddState(UnitOrder order, bool replaceCurrent = true)
     {
-
-        if (replaceCurrent)
+        if (gameObject.activeSelf) 
         {
-            Queue.Clear();
-            Queue.Add(order);
-            NextState();
-        }
-        else
-        {
-            Queue.Add(order);
+            if (replaceCurrent)
+            {
+                Queue.Clear();
+                Queue.Add(order);
+                NextState();
+            }
+            else
+            {
+                Queue.Add(order);
+            }
         }
 
     }
@@ -124,7 +126,7 @@ public class UnitScript : MonoBehaviour, IDamageable
         Hp -= damage;
         if (Hp <= 0)
         {
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
